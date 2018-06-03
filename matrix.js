@@ -22,6 +22,7 @@ const config = {
 		'R',
 		'I',
 		'X',
+		'Я', 'Ɔ', 'ᗡ', 'Ǝ',
 		'る',
 		'見',
 		'い',
@@ -39,7 +40,10 @@ const config = {
 		'ュ',
 		'ー',
 		'タ'
-	]
+	],
+	messageX: 10,
+	messageY: 20,
+	message: 'THE MATRIX'
 }
 
 const getNegativeRandomInt = (max) => getRandomInt(max) * -1
@@ -47,6 +51,7 @@ const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max))
 const getRandomChar = () => config.chars[getRandomInt(config.chars.length)]
 
 function setup() {
+	frameRate(10);
 	createCanvas(config.width, config.height)
 	background(45, 255, 94)
 
@@ -61,7 +66,7 @@ function setup() {
 }
 
 function draw() {
-	fill(0, 0, 0, 5)
+	fill(0, 0, 0, 30)
 	rect(0, 0, config.width, config.height)
 }
 
@@ -79,27 +84,60 @@ const drawLetters = () => {
 
 const drawLetter = (index) => {
 	if (!y[index]) {
-		y[index] = getNegativeRandomInt(40 * config.spacingY)
+		y[index] = getNegativeRandomInt(8) * config.spacingY
 	}
 
 	let char = getRandomChar()
 
-	fill(45, 255, 94)
+	if (y[index] !== config.messageY * config.spacingY) {
+		if (y[index] > 0) {
 
-	text(last[index], index * config.spacingX, y[index])
 
-	y[index] = incrementY(y[index])
 
-	//fill(100)
+			fill(45, 255, 94)
 
-	//textSize(22)
-	//text(char, index * config.spacingX, y[index])
+			text(last[index], index * config.spacingX + config.spacingX / 2, y[index])
 
-	fill(255)
 
-	textSize(21)
 
-	text(char, index * config.spacingX, y[index])
+		}
 
-	last[index] = char
+		y[index] = incrementY(y[index])
+
+
+		if (y[index] > 0) {
+
+
+			//}
+			//fill(100)
+
+			//textSize(22)
+			//text(char, index * config.spacingX, y[index])
+			if (y[index] === config.messageY * config.spacingY) {
+				const temp = config.message.charAt(index - config.messageX)
+				if (temp && temp !== ' ') {
+					char = temp
+				} else {
+					y[index] += 1;
+				}
+			}
+
+			fill(255)
+
+			textSize(21)
+
+			text(char, index * config.spacingX + config.spacingX / 2, y[index])
+
+			last[index] = char
+		}
+	} else {
+
+		fill(255)
+
+		textSize(21)
+
+		text(last[index], index * config.spacingX + config.spacingX / 2, y[index])
+
+
+	}
 }
