@@ -39,8 +39,7 @@ const config = {
 		'ュ',
 		'ー',
 		'タ'
-	],
-	mono: loadFont('share-tech-mono.otf')
+	]
 }
 
 const getNegativeRandomInt = (max) => getRandomInt(max) * -1
@@ -54,6 +53,7 @@ function setup() {
 	fill(0, 0, 0, 222)
 	rect(0, 0, config.width, config.height)
 
+	//textFont(loadFont('share-tech-mono.otf'))
 	textSize(20)
 	textAlign(CENTER, CENTER)
 
